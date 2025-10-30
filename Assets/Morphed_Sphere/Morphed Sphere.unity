@@ -135,6 +135,7 @@ GameObject:
   - component: {fileID: 12752020}
   - component: {fileID: 12752019}
   - component: {fileID: 12752021}
+  - component: {fileID: 12752022}
   m_Layer: 0
   m_Name: Sphere
   m_TagString: Untagged
@@ -223,6 +224,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gridSize: 10
   radius: 1
+--- !u!114 &12752022
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 12752016}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc0fc5020c002b64f8a5ba0d60f7f51b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1098202772
 GameObject:
   m_ObjectHideFlags: 0
@@ -341,6 +354,7 @@ GameObject:
   - component: {fileID: 1661118942}
   - component: {fileID: 1661118940}
   - component: {fileID: 1661118939}
+  - component: {fileID: 1661118944}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -430,6 +444,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1661118944
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1661118938}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ca5244bdca5f9e4a86d2a2e17d21a0d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  force: 10
 --- !u!1 &1946912466
 GameObject:
   m_ObjectHideFlags: 0
