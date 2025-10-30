@@ -236,6 +236,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc0fc5020c002b64f8a5ba0d60f7f51b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  springForce: 20
+  damping: 5
 --- !u!1 &1098202772
 GameObject:
   m_ObjectHideFlags: 0
@@ -456,7 +458,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ca5244bdca5f9e4a86d2a2e17d21a0d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  force: 10
+  force: 20
+  forceOffset: 0.1
 --- !u!1 &1946912466
 GameObject:
   m_ObjectHideFlags: 0

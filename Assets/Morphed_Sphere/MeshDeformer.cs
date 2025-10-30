@@ -3,6 +3,8 @@ using UnityEngine;
 [RequireComponent(typeof(MeshFilter))]
 public class MeshDeformer : MonoBehaviour
 {
+    float uniformScale = 1f;
+
     Mesh deformingMesh; // the mesh we have
     Vector3[] originalVertices, displacedVertices; // keeping track of the vertices
 
@@ -11,6 +13,7 @@ public class MeshDeformer : MonoBehaviour
 
     // how badly the vertices want to move back to its original position the further it is
     public float springForce = 20f;
+    public float damping = 5f; // infinite forces arent a thing, how fast is the force gonna die out
 
     void Start()
     {
@@ -28,6 +31,8 @@ public class MeshDeformer : MonoBehaviour
 
     void Update()
     {
+        uniformScale = transform.localScale.x; // make sure to take gameobj scale in mind
+
         for (int i = 0; i < displacedVertices.Length; i++)
         {
             UpdateVertex(i);
@@ -42,15 +47,18 @@ public class MeshDeformer : MonoBehaviour
 
         // the velocity of that vertice for it to start bouncing back
         Vector3 displacement = displacedVertices[i] - originalVertices[i]; // back to its original position
-		velocity -= displacement * springForce * Time.deltaTime;
+        displacement *= uniformScale; // accounting for gameobj scale
+        velocity -= displacement * springForce * Time.deltaTime;
+        velocity *= 1f - damping * Time.deltaTime; // apply damp
         vertexVelocities[i] = velocity; // total force
-        
+
         // the total force w time accounted
-		displacedVertices[i] += velocity * Time.deltaTime;
+		displacedVertices[i] += velocity * (Time.deltaTime / uniformScale);
 	}
 
     // the thing for the input handler to call
     public void AddDeformingForce (Vector3 point, float force) {
+        point = transform.InverseTransformPoint(point); // jsut to make sure if we moved the sphere since we doing calc in local space
 		for (int i = 0; i < displacedVertices.Length; i++) { // check every vertex
 			AddForceToVertex(i, point, force);  // then apply appropriate force
 		}
@@ -60,6 +68,7 @@ public class MeshDeformer : MonoBehaviour
     void AddForceToVertex (int i, Vector3 point, float force)
     {
         Vector3 pointToVertex = displacedVertices[i] - point; // the relative distance from this vertex to point of contact
+        pointToVertex *= uniformScale; // making sure we account for gameobj scale
 
         // calc of the force
         // technically from inverse-square law it's just force / distance, but have 1 + distance to avoid inf the closer to the point
