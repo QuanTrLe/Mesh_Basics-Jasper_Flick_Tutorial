@@ -9,6 +9,9 @@ public class MeshDeformer : MonoBehaviour
     // data for when we deform it
     Vector3[] vertexVelocities;
 
+    // how badly the vertices want to move back to its original position the further it is
+    public float springForce = 20f;
+
     void Start()
     {
         deformingMesh = GetComponent<MeshFilter>().mesh; // to get a copy of the mesh 
@@ -35,7 +38,14 @@ public class MeshDeformer : MonoBehaviour
 
     // basically just get all the forces we need and displace the vertex based on that
     void UpdateVertex (int i) {
-		Vector3 velocity = vertexVelocities[i];
+        Vector3 velocity = vertexVelocities[i]; // the velocity of a specific vertice
+
+        // the velocity of that vertice for it to start bouncing back
+        Vector3 displacement = displacedVertices[i] - originalVertices[i]; // back to its original position
+		velocity -= displacement * springForce * Time.deltaTime;
+        vertexVelocities[i] = velocity; // total force
+        
+        // the total force w time accounted
 		displacedVertices[i] += velocity * Time.deltaTime;
 	}
 
